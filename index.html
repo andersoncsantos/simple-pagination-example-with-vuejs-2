@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Books</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+</head>
+
+<body>
+    <div class="container" id="app">
+        <br>
+        <div class="col-12">
+            <div class="row">
+                <h1>Books</h1>
+            </div>
+            <div class="row">
+                <input type="search" class="form-control" v-model="mySearch" placeholder="Search">
+            </div>
+        </div>
+        <br>
+        <div class="col-12">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <i class="fa fa-fw fa-sort" v-bind:class="{'fa-sort-amount-asc': orderCol === 'id' && orderInverse === 1, 
+                                    'fa-sort-amount-desc': orderCol === 'id' && orderInverse === -1}"></i>
+                                <a href="#" @click="filterOrderBy('id')">Id</a>
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-sort" v-bind:class="{'fa-sort-amount-asc': orderCol === 'title' && orderInverse === 1, 
+                                'fa-sort-amount-desc': orderCol === 'title' && orderInverse === -1}"></i>
+                                <a href="#" @click="filterOrderBy('title')">Title</a>
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-sort" v-bind:class="{'fa-sort-amount-asc': orderCol === 'value' && orderInverse === 1, 
+                                'fa-sort-amount-desc': orderCol === 'value' && orderInverse === -1}"></i>
+                                <a href="#" @click="filterOrderBy('value')">Value</a>
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-sort" v-bind:class="{'fa-sort-amount-asc': orderCol === 'description' && orderInverse === 1, 
+                                'fa-sort-amount-desc': orderCol === 'description' && orderInverse === -1}"></i>
+                                <a href="#" @click="filterOrderBy('description')">Description</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="book in filteredBooks">
+                            <td>{{ book.id }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.value }}</td>
+                            <td>{{ book.description }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div class="row">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" v-bind:class="{'disabled': pagination.currentPage === 1}">
+                        <a class="page-link" href="#" @click="previous" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" v-for="(page, index) in pagination.perPage"
+                        v-bind:class="{'active': pagination.currentPage === index +1}">
+                        <a class="page-link" href="#" @click="pagePagination($event, index)">{{ index + 1}}</a>
+                    </li>
+                    <li class="page-item" v-bind:class="{'disabled': pagination.currentPage === pagination.totalPages}">
+                        <a class="page-link" href="#" @click="next" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
