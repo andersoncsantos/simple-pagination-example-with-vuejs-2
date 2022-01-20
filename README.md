@@ -1,1 +1,0 @@
-![me](https://github.com/andersoncsantos/simple-pagination-example-with-vuejs-2/blob/main/assets/images/vue_pagination.gif)
